@@ -35,7 +35,7 @@ const useLogin = () => {
         expires: 7,
         path: "/",
       });
-      navigate("/upload-json");
+      navigate("/dashboard");
       toast.success("Welcome");
     }
   };
