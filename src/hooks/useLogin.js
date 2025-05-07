@@ -28,8 +28,7 @@ const useLogin = () => {
       setError("");
     }
 
-    if (response.token) {
-
+    if (response) {
       Cookies.set("token", response.token, {
         secure: false,
         sameSite: "Lax",

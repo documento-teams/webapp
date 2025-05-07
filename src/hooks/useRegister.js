@@ -9,8 +9,7 @@ const useRegister = () => {
   const handleRegister = async (values) => {
     try {
       await api.post("/api/user/register", {
-        firstName: values.firstName,
-        lastName: values.lastName,
+        fullname: values.fullname,
         email: values.email,
         password: values.password,
       });
