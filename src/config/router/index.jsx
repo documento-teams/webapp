@@ -15,10 +15,10 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
-      <>
+      <div className="flex">
         <NavigationSidebar />
         <Dashboard />
-      </>
+      </div>
     ),
   },
 ]);
