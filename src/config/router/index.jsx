@@ -3,6 +3,7 @@ import Login from "@/views/auth/login";
 import Register from "@/views/auth/register";
 import Dashboard from "@/views/dashboard";
 import NavigationSidebar from "@/components/navigation/navigationSidebar";
+import PrivateRoute from "@/components/privateRoutes";
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -15,10 +16,12 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
-      <div className="flex">
-        <NavigationSidebar />
-        <Dashboard />
-      </div>
+      <PrivateRoute>
+        <div className="flex">
+          <NavigationSidebar />
+          <Dashboard />
+        </div>
+      </PrivateRoute>
     ),
   },
 ]);
