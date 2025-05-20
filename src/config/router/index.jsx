@@ -17,8 +17,10 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <>
-        <NavigationSidebar />
-        <Dashboard />
+        <div className="flex">
+          <NavigationSidebar />
+          <Dashboard />
+        </div>
       </>
     ),
   },
@@ -26,8 +28,10 @@ const router = createBrowserRouter([
     path: "/workspaces",
     element: (
       <>
-        <NavigationSidebar />
-        <WorkspacesView />
+        <div className="flex">
+          <NavigationSidebar />
+          <WorkspacesView />
+        </div>
       </>
     ),
   },
