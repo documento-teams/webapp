@@ -1,15 +1,14 @@
 import useWorkspace from "@/hooks/useWorkspace";
 import PropTypes from "prop-types";
 import List from "@/components/common/List";
-import WorkspaceItem from "@/components/workspaces/WorkspaceItem";
-import CreateWorkspaceForm from "@/components/workspaces/CreateWorkspaceForm";
+import WorkspaceItem from "@/components/workspaces/workspaceItem";
 
 const WorkspaceList = ({ onSelect }) => {
   const { workspaces, loading, error, deleteWorkspace } = useWorkspace();
 
   const workspacesArray = Array.isArray(workspaces)
     ? workspaces
-    : (workspaces && workspaces.workspaces)
+    : workspaces && workspaces.workspaces
       ? workspaces.workspaces
       : [];
 
@@ -39,7 +38,6 @@ const WorkspaceList = ({ onSelect }) => {
       isLoading={loading}
       error={error}
       emptyMessage="No workspaces found. Create your first one!"
-      createFormComponent={CreateWorkspaceForm}
     />
   );
 };

@@ -7,7 +7,7 @@ const NavigationSidebar = () => {
   const items = [
     { label: "Documents", action: () => navigate("/documents") },
     { label: "Profile", action: () => navigate("/profile") },
-    { label: "Workspace", action: () => navigate("/workspace") },
+    { label: "Workspace", action: () => navigate("/workspaces") },
   ];
 
   const footerItems = [
