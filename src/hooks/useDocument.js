@@ -11,6 +11,7 @@ const useDocument = () => {
       setLoading(true);
       try {
         const data = await api.get(`/api/document/${workspaceId}`);
+        console.log("data", data);
         setDocuments(data);
         setError(null);
       } catch (err) {
@@ -39,7 +40,9 @@ const useDocument = () => {
     try {
       const updatedDocument = await api.put(`/api/document/${id}`, data);
       setDocuments((prev) =>
-        prev.map((document) => (document.id === id ? updatedDocument : document))
+        prev.map((document) =>
+          document.id === id ? updatedDocument : document,
+        ),
       );
       return updatedDocument;
     } catch (err) {
@@ -49,7 +52,14 @@ const useDocument = () => {
     }
   };
 
-  return { documents, loading, error, fetchDocuments, deleteDocument, updateDocument };
+  return {
+    documents,
+    loading,
+    error,
+    fetchDocuments,
+    deleteDocument,
+    updateDocument,
+  };
 };
 
 export default useDocument;

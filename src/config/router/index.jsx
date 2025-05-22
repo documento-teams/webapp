@@ -1,9 +1,11 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
 import Login from "@/views/auth/login";
 import Register from "@/views/auth/register";
 import Dashboard from "@/views/dashboard";
 import NavigationSidebar from "@/components/navigation/navigationSidebar";
 import WorkspacesView from "@/views/workspaces";
+import WorkspaceDocumentListView from "@/views/workspaces/workspaceDocumentListView";
+
 const router = createBrowserRouter([
   {
     path: "/login",
@@ -30,10 +32,20 @@ const router = createBrowserRouter([
       <>
         <div className="flex">
           <NavigationSidebar />
-          <WorkspacesView />
+          <Outlet />
         </div>
       </>
     ),
+    children: [
+      {
+        index: true,
+        element: <WorkspacesView />,
+      },
+      {
+        path: ":id",
+        element: <WorkspaceDocumentListView />,
+      },
+    ],
   },
 ]);
 

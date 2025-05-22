@@ -1,26 +1,19 @@
 import useDocument from "@/hooks/useDocument";
-import List from "@components/list";
+import List from "@/components/common/List";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 
-const WorkspaceDocumentList = () => {
-  const { workspaceId } = useParams();
+const WorkspaceDocumentList = ({ id }) => {
   const { documents, fetchDocuments, deleteDocument } = useDocument();
 
   useEffect(() => {
-    if (workspaceId) {
-      fetchDocuments(parseInt(workspaceId, 10));
+    if (id) {
+      fetchDocuments(parseInt(id, 10));
     }
-  }, [workspaceId, fetchDocuments]);
-
+  }, [id, fetchDocuments]);
 
   return (
     <div>
       <h1>Workspace Document List</h1>
-      <List
-        items={documents}
-        onDeleteItem={deleteDocument}
-      />
     </div>
   );
 };
