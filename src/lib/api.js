@@ -20,11 +20,27 @@ async function request(endpoint, { method = "GET", body, headers = {} } = {}) {
     const response = await fetch(url, config);
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      const contentType = response.headers.get("Content-Type") || "";
+      if (contentType.includes("application/json")) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+      } else {
+        const errorText = await response.text();
+        throw new Error(errorText || `HTTP error! status: ${response.status}`);
+      }
     }
 
-    return response.status !== 204 ? response.json() : null;
+    if (response.status !== 204) {
+      const contentType = response.headers.get("Content-Type") || "";
+      if (contentType.includes("application/json")) {
+        return await response.json();
+      } else {
+        const text = await response.text();
+        console.warn("Response was not JSON:", text);
+        return { message: text };
+      }
+    }
+    return null;
   } catch (error) {
     console.error("Request error:", error);
     throw error;

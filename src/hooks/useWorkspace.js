@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import api from "@/lib/api";
 
 const useWorkspace = () => {
   const [workspaces, setWorkspaces] = useState([]);
@@ -8,19 +9,14 @@ const useWorkspace = () => {
   const fetchWorkspaces = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/workspace/all`, {
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      try {
+        const data = await api.get("/api/workspace/all");
+        setWorkspaces(data);
+        setError(null);
+      } catch (err) {
+        console.error("Fetch workspaces error:", err);
+        throw new Error(`Error loading workspaces: ${err.message}`);
       }
-
-      const data = await response.json();
-      setWorkspaces(data);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -30,42 +26,23 @@ const useWorkspace = () => {
 
   const createWorkspace = async (name) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/workspace/create`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ name })
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
-      }
-
-      const newWorkspace = await response.json();
+      const newWorkspace = await api.post("/api/workspace/create", { name });
       setWorkspaces(prev => [...prev, newWorkspace]);
       return newWorkspace;
     } catch (err) {
-      setError(err.message);
+      console.error("Create workspace error:", err);
+      setError(`Error creating workspace: ${err.message}`);
       throw err;
     }
   };
 
   const deleteWorkspace = async (id) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/workspace/${id}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
-      }
-
+      await api.delete(`/api/workspace/${id}`);
       setWorkspaces(prev => prev.filter(workspace => workspace.id !== id));
     } catch (err) {
-      setError(err.message);
+      console.error("Delete workspace error:", err);
+      setError(`Error deleting workspace: ${err.message}`);
       throw err;
     }
   };
