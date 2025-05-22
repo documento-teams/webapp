@@ -13,7 +13,12 @@ const WorkspaceDocumentList = ({ id }) => {
 
   return (
     <div>
-      <h1>Workspace Document List</h1>
+      <List
+        items={documents}
+        onDeleteItem={deleteDocument}
+        itemTypeName="Documents"
+        emptyMessage="No document found. Create your first one"
+      />
     </div>
   );
 };
