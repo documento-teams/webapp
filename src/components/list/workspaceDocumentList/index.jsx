@@ -5,7 +5,6 @@ import Button from "@/components/common/button";
 import useDocument from "@/hooks/useDocument";
 import useWorkspace from "@/hooks/useWorkspace";
 
-// DocumentItem stylisé comme WorkspaceItem mais conservant tous les détails
 const DocumentItem = ({ document, onSelect, onDelete }) => {
   const handleDelete = (e) => {
     e.stopPropagation();
@@ -73,7 +72,7 @@ DocumentItem.propTypes = {
   onDelete: PropTypes.func.isRequired
 };
 
-// Composant pour créer un nouveau document
+
 const CreateDocumentForm = ({ workspaceId }) => {
   const { createDocument } = useDocument();
   const [isCreating, setIsCreating] = useState(false);
@@ -142,7 +141,7 @@ CreateDocumentForm.propTypes = {
   workspaceId: PropTypes.string.isRequired
 };
 
-// Composant principal
+
 const WorkspaceDocumentList = ({ id }) => {
   const { documents, loading: docLoading, error: docError, fetchDocuments, deleteDocument } = useDocument();
   const { workspaces, loading: wsLoading, error: wsError } = useWorkspace();
@@ -154,13 +153,11 @@ const WorkspaceDocumentList = ({ id }) => {
     }
   }, [id, fetchDocuments]);
 
-  // Trouver le workspace dans les données
   useEffect(() => {
     if (!id || !workspaces) { return; }
 
     const workspaceId = parseInt(id, 10);
     let foundWorkspace = null;
-    // Gérer les différentes structures possibles de workspaces
     if (Array.isArray(workspaces)) {
       foundWorkspace = workspaces.find(w => w.id === workspaceId);
     } else if (workspaces.workspaces && Array.isArray(workspaces.workspaces)) {
@@ -188,7 +185,6 @@ const WorkspaceDocumentList = ({ id }) => {
   const isLoading = docLoading || wsLoading;
   const error = docError || wsError;
 
-  // Assurez-vous que documents est un tableau
   const documentsArray = Array.isArray(documents) ? documents : [];
 
   return (

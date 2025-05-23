@@ -6,7 +6,6 @@ const useDocument = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Utiliser useCallback pour mémoriser la fonction
   const fetchDocuments = useCallback(async (workspaceId = null) => {
     try {
       setLoading(true);
@@ -25,7 +24,6 @@ const useDocument = () => {
     }
   }, []);
 
-  // Créer un nouveau document
   const createDocument = useCallback(async (documentData) => {
     try {
       const response = await api.post("/api/document/create", documentData);
@@ -38,7 +36,6 @@ const useDocument = () => {
     }
   }, []);
 
-  // Supprimer un document
   const deleteDocument = useCallback(async (id) => {
     try {
       await api.delete(`/api/document/${id}`);
@@ -50,7 +47,6 @@ const useDocument = () => {
     }
   }, []);
 
-  // Mettre à jour un document
   const updateDocument = useCallback(async (id, data) => {
     try {
       const updatedDocument = await api.put(`/api/document/${id}`, data);
