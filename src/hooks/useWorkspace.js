@@ -49,14 +49,12 @@ const useWorkspace = () => {
 
   const getWorkspaceById = useCallback(async (id) => {
     try {
-      // Vérifier d'abord dans le state local
       if (workspaces && workspaces.length > 0) {
         const cachedWorkspace = workspaces.find((w) => w.id === id);
         if (cachedWorkspace) {
           return cachedWorkspace;
         }
       }
-      // Si non trouvé dans le cache, faire une requête API
       const response = await api.get(`/api/workspace/${id}`);
       return response.workspace || response;
     } catch (err) {
