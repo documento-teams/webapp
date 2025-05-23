@@ -14,7 +14,6 @@ const WorkspaceDocumentListView = () => {
 
   return (
     <div>
-      <h1>Workspace Document List</h1>
       <WorkspaceDocumentList id={id} />
     </div>
   );
