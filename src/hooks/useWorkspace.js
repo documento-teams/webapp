@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect , useCallback } from "react";
 import api from "@/lib/api";
 
 const useWorkspace = () => {
@@ -47,11 +47,27 @@ const useWorkspace = () => {
     }
   };
 
+  const getWorkspaceById = useCallback(async (id) => {
+    try {
+      if (workspaces && workspaces.length > 0) {
+        const cachedWorkspace = workspaces.find((w) => w.id === id);
+        if (cachedWorkspace) {
+          return cachedWorkspace;
+        }
+      }
+      const response = await api.get(`/api/workspace/${id}`);
+      return response.workspace || response;
+    } catch (err) {
+      console.error("Error fetching workspace by ID:", err);
+      throw new Error(`Error fetching workspace: ${err.message}`);
+    }
+  }, [workspaces]);
+
   useEffect(() => {
     fetchWorkspaces();
   }, []);
 
-  return { workspaces, loading, error, createWorkspace, deleteWorkspace, refreshWorkspaces: fetchWorkspaces };
+  return { workspaces, loading, error, createWorkspace, deleteWorkspace, getWorkspaceById, refreshWorkspaces: fetchWorkspaces };
 };
 
 export default useWorkspace;

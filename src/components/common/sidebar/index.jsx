@@ -1,12 +1,6 @@
 const Sidebar = ({ title, items, footerItems }) => {
-  const handleItemClick = (item) => {
-    if (item && typeof item.action === "function") {
-      item.action();
-    }
-  };
-
   return (
-    <div className="w-64 h-screen bg-white shadow-xl rounded-lg pr-4 border-r-2 border-gray-300 flex flex-col justify-between">
+    <div className="w-64 h-screen bg-white shadow-xl rounded-lg pr-4 border-r-2 border-gray-300 flex flex-col justify-between p-4">
       <div>
         <h2 className="text-2xl font-bold text-purple-700 my-6 text-center">
           {title}
@@ -16,7 +10,7 @@ const Sidebar = ({ title, items, footerItems }) => {
             <li
               key={index}
               className="flex items-center bg-gray-100 hover:bg-purple-100 transition duration-300 p-3 rounded-lg cursor-pointer"
-              onClick={() => handleItemClick(item)}
+              onClick={item.action}
             >
               <span className="text-gray-700 font-medium">{item.label}</span>
             </li>
@@ -29,7 +23,7 @@ const Sidebar = ({ title, items, footerItems }) => {
             <li
               key={index}
               className="flex items-center bg-gray-100 hover:bg-red-100 transition duration-300 p-3 rounded-lg cursor-pointer mb-3"
-              onClick={() => handleItemClick(item)}
+              onClick={item.action}
             >
               <span className="text-red-600 font-medium">{item.label}</span>
             </li>

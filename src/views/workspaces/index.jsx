@@ -5,7 +5,6 @@ const WorkspacesView = () => {
   const navigate = useNavigate();
 
   const handleSelectWorkspace = (workspace) => {
-    // Navigation vers la page du workspace sélectionné
     navigate(`/workspaces/${workspace.id}`);
   };
 
