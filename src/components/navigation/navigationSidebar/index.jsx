@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import Sidebar from "@/components/common/sidebar";
+import Logout from "@/components/common/logout";
+import useLogin from "@/hooks/useLogin";
 
 const NavigationSidebar = () => {
   const navigate = useNavigate();
+  const { logout } = useLogin();
 
   const items = [
     { label: "Documents", action: () => navigate("/documents") },
@@ -11,7 +14,11 @@ const NavigationSidebar = () => {
   ];
 
   const footerItems = [
-    { label: "Logout", action: () => console.log("Logout clicked") },
+    {
+      label: "Logout",
+      action: logout,
+      className: "text-red-500 hover:text-red-700"
+    },
     { label: "Settings", action: () => console.log("Settings clicked") },
   ];
 
