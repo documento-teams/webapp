@@ -10,6 +10,7 @@ import Dashboard from "@/views/dashboard";
 import NavigationSidebar from "@/components/navigation/navigationSidebar";
 import WorkspacesView from "@/views/workspaces";
 import WorkspaceDocumentListView from "@/views/workspaces/workspaceDocumentListView";
+import ProtectedRoutes from "@/components/privateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -28,10 +29,12 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <>
-        <div className="flex">
-          <NavigationSidebar />
-          <Dashboard />
-        </div>
+        <ProtectedRoutes>
+          <div className="flex">
+            <NavigationSidebar />
+            <Dashboard />
+          </div>
+        </ProtectedRoutes>
       </>
     ),
   },
@@ -39,10 +42,12 @@ const router = createBrowserRouter([
     path: "/workspaces",
     element: (
       <>
-        <div className="flex">
-          <NavigationSidebar />
-          <Outlet />
-        </div>
+        <ProtectedRoutes>
+          <div className="flex">
+            <NavigationSidebar />
+            <Outlet />
+          </div>
+        </ProtectedRoutes>
       </>
     ),
     children: [
