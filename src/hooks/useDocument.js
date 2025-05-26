@@ -41,8 +41,8 @@ const useDocument = () => {
 
   const createDocument = useCallback(async (documentData) => {
     try {
-      if (!documentData) {
-        documentData = "#Hello World";
+      if (!documentData.content) {
+        documentData.content = "#Hello World";
       }
       const response = await api.post("/api/document/create", documentData);
       setDocuments((prev) => [...prev, response]);
