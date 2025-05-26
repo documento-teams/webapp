@@ -27,13 +27,17 @@ const useDocument = () => {
 
   const fetchDocumentsById = useCallback(async (id) => {
     try {
+      setLoading(true);
       const data = await api.get(`/api/document/${id}`);
       setSpecificDocument(data);
-      console.log("data fetchDocumentsById", data);
-    } catch {
-      console.error("Erro while fetching the document by ID ");
+      setError(null);
+    } catch (err) {
+      console.error("Fetch document error:", err);
+      setError(err.message || "Failed to load document");
+    } finally {
+      setLoading(false);
     }
-  });
+  }, []);
 
   const createDocument = useCallback(async (documentData) => {
     try {
@@ -61,19 +65,21 @@ const useDocument = () => {
     }
   }, []);
 
-  const updateDocument = useCallback(async (id, data) => {
+  const updateDocument = useCallback(async (documentData) => {
     try {
-      const updatedDocument = await api.put(`/api/document/${id}`, data);
-      setDocuments((prev) =>
-        prev.map((document) =>
-          document.id === id ? updatedDocument : document,
-        ),
-      );
-      return updatedDocument;
+      setLoading(true);
+      const { id, ...data } = documentData;
+      console.log(typeof id, data);
+      const response = await api.put(`/api/document/update/${id}`, data);
+      setSpecificDocument(prev => ({ ...prev, ...response }));
+      setError(null);
+      return response;
     } catch (err) {
       console.error("Update document error:", err);
       setError(err.message || "Failed to update document");
       throw err;
+    } finally {
+      setLoading(false);
     }
   }, []);
 
