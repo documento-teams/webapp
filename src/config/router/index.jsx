@@ -1,4 +1,9 @@
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
+  Navigate,
+} from "react-router";
 import Login from "@/views/auth/login";
 import Register from "@/views/auth/register";
 import Dashboard from "@/views/dashboard";
@@ -6,8 +11,14 @@ import NavigationSidebar from "@/components/navigation/navigationSidebar";
 import WorkspacesView from "@/views/workspaces";
 import WorkspaceDocumentListView from "@/views/workspaces/workspaceDocumentListView";
 import DocumentEditorView from "@/views/documents/documentEditorView";
+import ProtectedRoutes from "@/components/privateRoutes";
+
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Navigate to="/login" replace />,
+  },
   {
     path: "/login",
     element: <Login />,
@@ -20,10 +31,12 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <>
-        <div className="flex">
-          <NavigationSidebar />
-          <Dashboard />
-        </div>
+        <ProtectedRoutes>
+          <div className="flex">
+            <NavigationSidebar />
+            <Dashboard />
+          </div>
+        </ProtectedRoutes>
       </>
     ),
   },
@@ -31,10 +44,12 @@ const router = createBrowserRouter([
     path: "/workspaces",
     element: (
       <>
-        <div className="flex">
-          <NavigationSidebar />
-          <Outlet />
-        </div>
+        <ProtectedRoutes>
+          <div className="flex">
+            <NavigationSidebar />
+            <Outlet />
+          </div>
+        </ProtectedRoutes>
       </>
     ),
     children: [
