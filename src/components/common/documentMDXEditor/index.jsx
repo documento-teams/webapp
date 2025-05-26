@@ -33,11 +33,14 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import PropTypes from "prop-types";
 
 const defaultSnippetContent = `
-export default function App() {
+  import { useState } from "react";
+  export default function App() {
+  const [count, setCount] = useState(0);
   return (
     <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
+      <button onClick={() => setCount(count + 1)}>
+        count is {count}
+      </button>
     </div>
   );
 }
@@ -63,7 +66,7 @@ const DocuEditor = ({
   content = "# Hello World\n\nStart writing your document...",
   onChange,
   onSave,
-  readOnly = false
+  readOnly = false,
 }) => {
   const [editorKey, setEditorKey] = useState(0);
   const [initialContent, setInitialContent] = useState(content);
@@ -72,7 +75,7 @@ const DocuEditor = ({
   useEffect(() => {
     if (content !== currentContent.current) {
       setInitialContent(content);
-      setEditorKey(prev => prev + 1);
+      setEditorKey((prev) => prev + 1);
       currentContent.current = content;
     }
   }, [content]);
@@ -82,17 +85,20 @@ const DocuEditor = ({
       currentContent.current = newMarkdown;
       onChange?.(newMarkdown);
     },
-    [onChange]
+    [onChange],
   );
 
-  const handleKeyDown = useCallback((event) => {
-    if ((event.ctrlKey || event.metaKey) && event.key === "s") {
-      event.preventDefault();
-      if (onSave) {
-        onSave(currentContent.current);
+  const handleKeyDown = useCallback(
+    (event) => {
+      if ((event.ctrlKey || event.metaKey) && event.key === "s") {
+        event.preventDefault();
+        if (onSave) {
+          onSave(currentContent.current);
+        }
       }
-    }
-  }, [onSave]);
+    },
+    [onSave],
+  );
 
   return (
     <div className="mdx-editor-wrapper" onKeyDown={handleKeyDown}>
@@ -192,7 +198,7 @@ DocuEditor.propTypes = {
   content: PropTypes.string,
   onChange: PropTypes.func,
   onSave: PropTypes.func,
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
 };
 
 export default DocuEditor;
