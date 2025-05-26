@@ -3,6 +3,7 @@ import api from "@/lib/api";
 
 const useDocument = () => {
   const [documents, setDocuments] = useState([]);
+  const [specificDocument, setSpecificDocument] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -19,6 +20,20 @@ const useDocument = () => {
     } catch (err) {
       console.error("Fetch documents error:", err);
       setError(err.message || "Failed to load documents");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const fetchDocumentsById = useCallback(async (id) => {
+    try {
+      setLoading(true);
+      const data = await api.get(`/api/document/${id}`);
+      setSpecificDocument(data);
+      setError(null);
+    } catch (err) {
+      console.error("Fetch document error:", err);
+      setError(err.message || "Failed to load document");
     } finally {
       setLoading(false);
     }
@@ -50,19 +65,21 @@ const useDocument = () => {
     }
   }, []);
 
-  const updateDocument = useCallback(async (id, data) => {
+  const updateDocument = useCallback(async (documentData) => {
     try {
-      const updatedDocument = await api.put(`/api/document/${id}`, data);
-      setDocuments((prev) =>
-        prev.map((document) =>
-          document.id === id ? updatedDocument : document
-        )
-      );
-      return updatedDocument;
+      setLoading(true);
+      const { id, ...data } = documentData;
+      console.log(typeof id, data);
+      const response = await api.put(`/api/document/update/${id}`, data);
+      setSpecificDocument(prev => ({ ...prev, ...response }));
+      setError(null);
+      return response;
     } catch (err) {
       console.error("Update document error:", err);
       setError(err.message || "Failed to update document");
       throw err;
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -74,6 +91,9 @@ const useDocument = () => {
     createDocument,
     deleteDocument,
     updateDocument,
+    fetchDocumentsById,
+    specificDocument,
+    setSpecificDocument,
   };
 };
 
