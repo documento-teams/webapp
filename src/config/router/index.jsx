@@ -1,4 +1,9 @@
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
+  Navigate,
+} from "react-router";
 import Login from "@/views/auth/login";
 import Register from "@/views/auth/register";
 import Dashboard from "@/views/dashboard";
@@ -7,6 +12,10 @@ import WorkspacesView from "@/views/workspaces";
 import WorkspaceDocumentListView from "@/views/workspaces/workspaceDocumentListView";
 
 const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Navigate to="/login" replace />,
+  },
   {
     path: "/login",
     element: <Login />,
