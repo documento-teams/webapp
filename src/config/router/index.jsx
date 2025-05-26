@@ -12,6 +12,7 @@ import WorkspacesView from "@/views/workspaces";
 import WorkspaceDocumentListView from "@/views/workspaces/workspaceDocumentListView";
 import DocumentEditorView from "@/views/documents/documentEditorView";
 import ProtectedRoutes from "@/components/privateRoutes";
+import AllDocumentsView from "@/views/documents/allDocuments";
 
 
 const router = createBrowserRouter([
@@ -26,6 +27,19 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/documentsHub",
+    element: (
+      <>
+        <ProtectedRoutes>
+          <div className="flex">
+            <NavigationSidebar />
+            <AllDocumentsView />
+          </div>
+        </ProtectedRoutes>
+      </>
+    ),
   },
   {
     path: "/dashboard",

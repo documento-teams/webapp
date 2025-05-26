@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import Sidebar from "@/components/common/sidebar";
-import Logout from "@/components/common/logout";
 import useLogin from "@/hooks/useLogin";
 
 const NavigationSidebar = () => {
@@ -8,7 +7,7 @@ const NavigationSidebar = () => {
   const { logout } = useLogin();
 
   const items = [
-    { label: "Documents", action: () => navigate("/documents") },
+    { label: "Documents", action: () => navigate("/documentsHub") },
     { label: "Profile", action: () => navigate("/profile") },
     { label: "Workspace", action: () => navigate("/workspaces") },
   ];

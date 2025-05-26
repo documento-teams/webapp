@@ -83,6 +83,20 @@ const useDocument = () => {
     }
   }, []);
 
+  const fetchAllDocument = useCallback(async () => {
+    try {
+      setLoading(true);
+      const data = await api.get("/api/document/all");
+      setDocuments(data);
+      setError(null);
+    } catch (err) {
+      console.error("Fetch all documents error:", err);
+      setError(err.message || "Failed to load all documents");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   return {
     documents,
     loading,
@@ -94,6 +108,7 @@ const useDocument = () => {
     fetchDocumentsById,
     specificDocument,
     setSpecificDocument,
+    fetchAllDocument,
   };
 };
 
