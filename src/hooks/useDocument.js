@@ -3,6 +3,7 @@ import api from "@/lib/api";
 
 const useDocument = () => {
   const [documents, setDocuments] = useState([]);
+  const [specificDocument, setSpecificDocument] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -23,6 +24,16 @@ const useDocument = () => {
       setLoading(false);
     }
   }, []);
+
+  const fetchDocumentsById = useCallback(async (id) => {
+    try {
+      const data = await api.get(`/api/document/${id}`);
+      setSpecificDocument(data);
+      console.log("data fetchDocumentsById", data);
+    } catch {
+      console.error("Erro while fetching the document by ID ");
+    }
+  });
 
   const createDocument = useCallback(async (documentData) => {
     try {
@@ -55,8 +66,8 @@ const useDocument = () => {
       const updatedDocument = await api.put(`/api/document/${id}`, data);
       setDocuments((prev) =>
         prev.map((document) =>
-          document.id === id ? updatedDocument : document
-        )
+          document.id === id ? updatedDocument : document,
+        ),
       );
       return updatedDocument;
     } catch (err) {
@@ -74,6 +85,9 @@ const useDocument = () => {
     createDocument,
     deleteDocument,
     updateDocument,
+    fetchDocumentsById,
+    specificDocument,
+    setSpecificDocument,
   };
 };
 

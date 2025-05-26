@@ -5,6 +5,7 @@ import Dashboard from "@/views/dashboard";
 import NavigationSidebar from "@/components/navigation/navigationSidebar";
 import WorkspacesView from "@/views/workspaces";
 import WorkspaceDocumentListView from "@/views/workspaces/workspaceDocumentListView";
+import DocumentEditorView from "@/views/documents/documentEditorView";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,26 @@ const router = createBrowserRouter([
       {
         path: ":id",
         element: <WorkspaceDocumentListView />,
+      },
+    ],
+  },
+  {
+    path: "/documents",
+    element: (
+      <>
+        <div>
+          <Outlet />
+        </div>
+      </>
+    ),
+    children: [
+      {
+        index: true,
+        element: <h1>Document List</h1>,
+      },
+      {
+        path: ":id",
+        element: <DocumentEditorView />,
       },
     ],
   },
