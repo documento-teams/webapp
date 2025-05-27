@@ -7,7 +7,7 @@ import Button from "@/components/common/button";
 const DocumentEditor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { fetchDocumentsById, specificDocument, updateDocument } = useDocument();
+  const { fetchDocumentsById, specificDocument, updateDocument, error } = useDocument();
   const [isLoading, setIsLoading] = useState(true);
   const [content, setContent] = useState("");
   const [hasChanges, setHasChanges] = useState(false);
@@ -28,7 +28,6 @@ const DocumentEditor = () => {
     fetchData();
   }, [fetchData]);
 
-  // Mettre à jour le contenu quand le document est chargé
   useEffect(() => {
     if (specificDocument) {
       const docContent = specificDocument.content || "# New Document\n\nStart writing...";
@@ -37,13 +36,20 @@ const DocumentEditor = () => {
     }
   }, [specificDocument]);
 
+  const canEdit = specificDocument?.permissions?.canEdit ?? false;
+  const readOnly = specificDocument?.permissions?.readOnly ?? false;
+
   const handleContentChange = (newContent) => {
+    if (readOnly) {
+      return;
+    }
+
     setContent(newContent);
     setHasChanges(newContent !== (specificDocument?.content || ""));
   };
 
   const handleSave = async (contentToSave = content) => {
-    if (!specificDocument) {
+    if (!specificDocument || readOnly) {
       return;
     }
 
@@ -62,7 +68,7 @@ const DocumentEditor = () => {
   };
 
   const handleBack = () => {
-    if (hasChanges) {
+    if (hasChanges && canEdit) {
       const shouldLeave = window.confirm("You have unsaved changes. Do you want to leave without saving?");
       if (!shouldLeave) {
         return;
@@ -89,7 +95,6 @@ const DocumentEditor = () => {
 
   return (
     <div className="h-full flex flex-col">
-      {/* Header */}
       <div className="flex items-center justify-between p-4 border-b bg-white">
         <div className="flex items-center gap-4">
           <Button variant="ghost" onClick={handleBack}>
@@ -99,29 +104,54 @@ const DocumentEditor = () => {
             <h1 className="text-xl font-semibold">
               {specificDocument.name || `Document ${id}`}
             </h1>
-            <p className="text-sm text-gray-500">
-              {hasChanges ? "Unsaved changes" : "All changes saved"}
-            </p>
+            <div className="flex items-center gap-4">
+              <p className="text-sm text-gray-500">
+                {hasChanges && canEdit ? "Unsaved changes" : "All changes saved"}
+              </p>
+              {readOnly && (
+                <span className="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">
+                  📖 Read Only
+                </span>
+              )}
+              {specificDocument.documentAuthor && (
+                <span className="text-xs text-gray-400">
+                  by {specificDocument.documentAuthor.fullname}
+                </span>
+              )}
+            </div>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Button
-            onClick={() => handleSave()}
-            disabled={!hasChanges || saving}
-            variant={hasChanges ? "primary" : "secondary"}
-          >
-            {saving ? "Saving..." : "Save"}
-          </Button>
+          {canEdit && (
+            <Button
+              onClick={() => handleSave()}
+              disabled={!hasChanges || saving || readOnly}
+              variant={hasChanges ? "primary" : "secondary"}
+            >
+              {saving ? "Saving..." : "Save"}
+            </Button>
+          )}
+          {readOnly && (
+            <div className="text-sm text-amber-600 bg-amber-50 px-3 py-1 rounded">
+              You can view this document but cannot edit it
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Editor */}
+      {error && error.includes("permission") && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 mx-4 mt-4 rounded">
+          {error}
+        </div>
+      )}
+
       <div className="flex-1 overflow-hidden">
         {content !== undefined && (
           <DocuEditor
             content={content}
             onChange={handleContentChange}
-            onSave={handleSave}
+            onSave={canEdit ? handleSave : undefined}
+            readOnly={readOnly}
           />
         )}
       </div>
