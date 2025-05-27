@@ -1,22 +1,36 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useWorkspace from "@/hooks/useWorkspace";
 
 const CreateWorkspaceForm = () => {
   const { createWorkspace } = useWorkspace();
+  const navigate = useNavigate();
   const [newWorkspaceName, setNewWorkspaceName] = useState("");
   const [isCreating, setIsCreating] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleCreateWorkspace = async (e) => {
     e.preventDefault();
-    if (!newWorkspaceName.trim()) {
+    if (!newWorkspaceName.trim() || isSubmitting) {
       return;
     }
+
     try {
-      await createWorkspace(newWorkspaceName);
+      setIsSubmitting(true);
+
+      const newWorkspace = await createWorkspace(newWorkspaceName.trim());
+
+      console.log("Workspace created, navigating to:", `/workspaces/${newWorkspace.id}`);
+
+      navigate(`/workspaces/${newWorkspace.id}`);
+
       setNewWorkspaceName("");
       setIsCreating(false);
+
     } catch (err) {
       console.error("Failed to create workspace:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -41,12 +55,24 @@ const CreateWorkspaceForm = () => {
           className="input input-bordered input-sm"
           placeholder="Workspace name"
           required
+          disabled={isSubmitting}
+          autoFocus
         />
-        <button type="submit" className="btn btn-primary btn-sm">Create</button>
+        <button
+          type="submit"
+          className="btn btn-primary btn-sm"
+          disabled={isSubmitting || !newWorkspaceName.trim()}
+        >
+          {isSubmitting ? "Creating..." : "Create"}
+        </button>
       </form>
       <button
-        onClick={() => setIsCreating(false)}
+        onClick={() => {
+          setIsCreating(false);
+          setNewWorkspaceName("");
+        }}
         className="btn btn-ghost btn-sm"
+        disabled={isSubmitting}
       >
         Cancel
       </button>
