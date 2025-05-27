@@ -46,12 +46,12 @@ const useDocument = () => {
   const createDocument = useCallback(async (documentData) => {
     try {
       if (!documentData.content) {
-        documentData.content = "# Hello World\n\nStart writing your document...";
+        documentData.content =
+          "# Hello World\n\nStart writing your document...";
       }
       const response = await api.post("/api/document/create", documentData);
       setDocuments((prev) => [response, ...prev]);
       setError(null);
-      console.log("Document created successfully:", response);
       return response;
     } catch (err) {
       console.error("Create document error:", err);
@@ -77,9 +77,9 @@ const useDocument = () => {
       setLoading(true);
       const { id, ...data } = documentData;
       const response = await api.put(`/api/document/update/${id}`, data);
-      setSpecificDocument(prev => ({ ...prev, ...response }));
-      setDocuments(prev =>
-        prev.map(doc => doc.id === id ? { ...doc, ...response } : doc)
+      setSpecificDocument((prev) => ({ ...prev, ...response }));
+      setDocuments((prev) =>
+        prev.map((doc) => (doc.id === id ? { ...doc, ...response } : doc)),
       );
       setError(null);
       return response;
@@ -108,13 +108,16 @@ const useDocument = () => {
     }
   }, []);
 
-  const refreshDocuments = useCallback((workspaceId = null) => {
-    if (workspaceId) {
-      return fetchDocuments(workspaceId);
-    } else {
-      return fetchAllDocument();
-    }
-  }, [fetchDocuments, fetchAllDocument]);
+  const refreshDocuments = useCallback(
+    (workspaceId = null) => {
+      if (workspaceId) {
+        return fetchDocuments(workspaceId);
+      } else {
+        return fetchAllDocument();
+      }
+    },
+    [fetchDocuments, fetchAllDocument],
+  );
 
   return {
     documents,
