@@ -18,17 +18,12 @@ const WorkspaceDocumentList = ({ id }) => {
   }, [id, fetchDocuments]);
 
   useEffect(() => {
-    if (!id || !workspaces) { return; }
+    if (!id || !workspaces || workspaces.length === 0) {
+      return;
+    }
 
     const workspaceId = parseInt(id, 10);
-    let foundWorkspace = null;
-    if (Array.isArray(workspaces)) {
-      foundWorkspace = workspaces.find(w => w.id === workspaceId);
-    } else if (workspaces.workspaces && Array.isArray(workspaces.workspaces)) {
-      foundWorkspace = workspaces.workspaces.find(w => w.id === workspaceId);
-    } else if (workspaces.id === workspaceId) {
-      foundWorkspace = workspaces;
-    }
+    const foundWorkspace = workspaces.find(w => w.id === workspaceId);
     setWorkspace(foundWorkspace);
   }, [id, workspaces]);
 
@@ -68,7 +63,7 @@ const WorkspaceDocumentList = ({ id }) => {
         items={documentsArray}
         renderItem={renderDocumentItem}
         onDeleteItem={deleteDocument}
-        itemTypeName="Your Document"
+        itemTypeName="Your Documents"
         isLoading={isLoading}
         error={error}
         emptyMessage="No documents found in this workspace. Create your first one!"
