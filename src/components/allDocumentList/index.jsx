@@ -31,28 +31,28 @@ const AllDocumentsList = () => {
 
   const filteredDocuments = Array.isArray(documents)
     ? documents.filter((doc) => {
-        const matchesSearch =
+      const matchesSearch =
           doc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           (doc.content &&
             doc.content.toLowerCase().includes(searchTerm.toLowerCase()));
-        const matchesAuthor =
+      const matchesAuthor =
           !selectedAuthor ||
           (doc.documentAuthor &&
             doc.documentAuthor.fullname
               .toLowerCase()
               .includes(selectedAuthor.toLowerCase()));
-        return matchesSearch && matchesAuthor;
-      })
+      return matchesSearch && matchesAuthor;
+    })
     : [];
 
   const uniqueAuthors = Array.isArray(documents)
     ? [
-        ...new Set(
-          documents
-            .filter((doc) => doc.documentAuthor && doc.documentAuthor.fullname)
-            .map((doc) => doc.documentAuthor.fullname)
-        ),
-      ]
+      ...new Set(
+        documents
+          .filter((doc) => doc.documentAuthor && doc.documentAuthor.fullname)
+          .map((doc) => doc.documentAuthor.fullname)
+      ),
+    ]
     : [];
 
   return (
