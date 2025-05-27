@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import api from "@/lib/api";
+import toast from "react-hot-toast";
 
 const useDocument = () => {
   const [documents, setDocuments] = useState([]);
@@ -17,6 +18,11 @@ const useDocument = () => {
       const data = await api.get(url);
       setDocuments(data);
       setError(null);
+      if (data.length === 0) {
+        toast.error("No documents found");
+      } else { 
+        toast.success("Documents loaded successfully");
+      }
     } catch (err) {
       console.error("Fetch documents error:", err);
       setError(err.message || "Failed to load documents");

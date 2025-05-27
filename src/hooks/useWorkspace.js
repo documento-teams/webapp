@@ -1,5 +1,6 @@
 import { useState, useEffect , useCallback } from "react";
 import api from "@/lib/api";
+import toast from "react-hot-toast";
 
 const useWorkspace = () => {
   const [workspaces, setWorkspaces] = useState([]);
@@ -13,6 +14,11 @@ const useWorkspace = () => {
         const data = await api.get("/api/workspace/all");
         setWorkspaces(data);
         setError(null);
+        if (data.length === 0) {
+          toast.error("No workspaces found");
+        } else {
+          toast.success("Workspaces loaded successfully");
+        }
       } catch (err) {
         console.error("Fetch workspaces error:", err);
         throw new Error(`Error loading workspaces: ${err.message}`);
@@ -28,9 +34,11 @@ const useWorkspace = () => {
     try {
       const newWorkspace = await api.post("/api/workspace/create", { name });
       setWorkspaces(prev => [...prev, newWorkspace]);
+      toast.success("Workspace created successfully");
       return newWorkspace;
     } catch (err) {
       console.error("Create workspace error:", err);
+      toast.error(`Error creating workspace: ${err.message}`);
       setError(`Error creating workspace: ${err.message}`);
       throw err;
     }
@@ -40,6 +48,7 @@ const useWorkspace = () => {
     try {
       await api.delete(`/api/workspace/${id}`);
       setWorkspaces(prev => prev.filter(workspace => workspace.id !== id));
+      toast.success("Workspace deleted successfully");
     } catch (err) {
       console.error("Delete workspace error:", err);
       setError(`Error deleting workspace: ${err.message}`);
@@ -58,6 +67,7 @@ const useWorkspace = () => {
       const response = await api.get(`/api/workspace/${id}`);
       return response.workspace || response;
     } catch (err) {
+      
       console.error("Error fetching workspace by ID:", err);
       throw new Error(`Error fetching workspace: ${err.message}`);
     }
