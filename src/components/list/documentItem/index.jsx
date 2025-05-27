@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Button from "@/components/common/button";
 
-const DocumentItem = ({ document, onSelect, onDelete, showAuthor = false }) => {
+const DocumentItem = ({ document, onSelect, onDelete, showAuthor = false, showDelete = true }) => {
   const handleDelete = (e) => {
     e.stopPropagation();
     if (window.confirm("Are you sure you want to delete this document?")) {
@@ -57,9 +57,16 @@ const DocumentItem = ({ document, onSelect, onDelete, showAuthor = false }) => {
               >
                 Open
               </Button>
-              <Button variant="error" size="sm" outline onClick={handleDelete}>
-                Delete
-              </Button>
+              {showDelete && (
+                <Button
+                  variant="error"
+                  size="sm"
+                  outline
+                  onClick={handleDelete}
+                >
+                  Delete
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -80,7 +87,8 @@ DocumentItem.propTypes = {
   }).isRequired,
   onSelect: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
-  showAuthor: PropTypes.bool
+  showAuthor: PropTypes.bool,
+  showDelete: PropTypes.bool
 };
 
 export default DocumentItem;

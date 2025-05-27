@@ -29,7 +29,7 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "/documentsHub",
+    path: "/document-list-all",
     element: (
       <>
         <ProtectedRoutes>
