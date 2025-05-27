@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import Button from "@/components/common/button";
+import Input from "@/components/common/input";
 import useDocument from "@/hooks/useDocument";
 
 const CreateDocumentForm = ({ workspaceId }) => {
@@ -21,7 +22,7 @@ const CreateDocumentForm = ({ workspaceId }) => {
       setIsSubmitting(true);
       const newDocument = await createDocument({
         name: name.trim(),
-        workspaceId: parseInt(workspaceId, 10)
+        workspaceId: parseInt(workspaceId, 10),
       });
 
       navigate(`/documents/${newDocument.id}`);
@@ -41,8 +42,19 @@ const CreateDocumentForm = ({ workspaceId }) => {
         size="sm"
         onClick={() => setIsCreating(true)}
         startIcon={
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 4v16m8-8H4"
+            />
           </svg>
         }
       >
@@ -54,15 +66,16 @@ const CreateDocumentForm = ({ workspaceId }) => {
   return (
     <div className="flex items-center gap-2">
       <form onSubmit={handleCreate} className="flex gap-2">
-        <input
+        <Input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="input input-bordered input-sm"
+          variant="primary"
           placeholder="Document name"
           required
           disabled={isSubmitting}
           autoFocus
+          inputClassName="input-sm"
         />
         <Button
           type="submit"
@@ -89,7 +102,8 @@ const CreateDocumentForm = ({ workspaceId }) => {
 };
 
 CreateDocumentForm.propTypes = {
-  workspaceId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  workspaceId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
 };
 
 export default CreateDocumentForm;

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import useRegister from "@/hooks/useRegister";
+import Input from "@/components/common/input";
 
 const RegisterForm = () => {
   const { error, handleRegister } = useRegister();
@@ -8,12 +9,14 @@ const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setPasswordError("");
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      setPasswordError("Passwords do not match!");
       return;
     }
 
@@ -29,57 +32,61 @@ const RegisterForm = () => {
         <h2 className="text-4xl font-bold mb-8 text-center text-green-700">
           Register
         </h2>
-        {error && (
-          <p className="text-red-500 text-center mb-4">{error}</p>
-        )}
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
         <div className="mb-6">
-          <label className="block text-gray-700 font-medium mb-2">
-            Full Name
-          </label>
-          <input
+          <Input
+            label="Full Name"
             type="text"
             placeholder="Enter your full name"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            variant="success"
+            fullWidth
             value={fullname}
             onChange={(e) => setFullname(e.target.value)}
+            labelClassName="text-gray-700 font-medium"
           />
         </div>
+
         <div className="mb-6">
-          <label className="block text-gray-700 font-medium mb-2">
-            Email
-          </label>
-          <input
+          <Input
+            label="Email"
             type="email"
             placeholder="Enter your email"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            variant="success"
+            fullWidth
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            labelClassName="text-gray-700 font-medium"
           />
         </div>
+
         <div className="mb-6">
-          <label className="block text-gray-700 font-medium mb-2">
-            Password
-          </label>
-          <input
+          <Input
+            label="Password"
             type="password"
             placeholder="Enter your password"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            variant="success"
+            fullWidth
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            labelClassName="text-gray-700 font-medium"
           />
         </div>
+
         <div className="mb-6">
-          <label className="block text-gray-700 font-medium mb-2">
-            Confirm Password
-          </label>
-          <input
+          <Input
+            label="Confirm Password"
             type="password"
             placeholder="Confirm your password"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            variant="success"
+            fullWidth
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
+            error={passwordError}
+            labelClassName="text-gray-700 font-medium"
           />
         </div>
+
         <button
           type="submit"
           className="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
