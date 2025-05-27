@@ -88,10 +88,6 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        index: true,
-        element: <h1>Document List</h1>,
-      },
-      {
         path: ":id",
         element: <DocumentEditorView />,
       },

@@ -57,8 +57,8 @@ const api = {
   async put(endpoint, body, headers = {}) {
     return request(endpoint, { method: "PUT", body, headers });
   },
-  async delete(endpoint, headers = {}) {
-    return request(endpoint, { method: "DELETE", headers });
+  async delete(endpoint,body, headers = {}) {
+    return request(endpoint, { method: "DELETE",body,headers });
   }
 };
 
