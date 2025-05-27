@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import Button from "@/components/common/button";
 
-const DocumentItem = ({ document, onSelect, onDelete }) => {
+const DocumentItem = ({ document, onSelect, onDelete, showAuthor = false }) => {
   const handleDelete = (e) => {
     e.stopPropagation();
     if (window.confirm("Are you sure you want to delete this document?")) {
@@ -14,14 +14,20 @@ const DocumentItem = ({ document, onSelect, onDelete }) => {
       <div className="card-body w-full p-5">
         <div className="flex flex-col h-full">
           <div className="flex-grow">
-            <h3 className="card-title text-lg text-purple-700 mb-2">
-              {document.name}
-            </h3>
+            <h3 className="card-title text-lg text-purple-700 mb-2">{document.name}</h3>
+            {showAuthor && document.documentAuthor && (
+              <div className="text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded-full inline-block mb-2">
+                👤 {document.documentAuthor.fullname}
+              </div>
+            )}
             {document.content && (
               <p className="text-gray-500 text-sm mb-4 line-clamp-2">
                 {document.content.substring(0, 300)}...
               </p>
             )}
+            {document.updatedAt && (
+              <div className="text-xs text-gray-400">
+                Updated: {new Date(document.updatedAt).toLocaleDateString()}
             {document.documentAuthor && (
               <div className="text-xs text-gray-500 flex items-center gap-1 mb-2">
                 <svg
@@ -74,6 +80,7 @@ DocumentItem.propTypes = {
   }).isRequired,
   onSelect: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  showAuthor: PropTypes.bool
 };
 
 export default DocumentItem;

@@ -7,7 +7,7 @@ const NavigationSidebar = () => {
   const { logout } = useLogin();
 
   const items = [
-    { label: "Documents", action: () => navigate("/documents") },
+    { label: "Documents", action: () => navigate("/documentsHub") },
     { label: "Profile", action: () => navigate("/profile") },
     { label: "Workspace", action: () => navigate("/workspaces") },
   ];

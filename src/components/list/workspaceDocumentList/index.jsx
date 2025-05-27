@@ -67,7 +67,7 @@ const WorkspaceDocumentList = ({ id }) => {
         items={documentsArray}
         renderItem={renderDocumentItem}
         onDeleteItem={deleteDocument}
-        itemTypeName="Documents"
+        itemTypeName="Your Document"
         isLoading={isLoading}
         error={error}
         emptyMessage="No documents found in this workspace. Create your first one!"
