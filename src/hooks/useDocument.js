@@ -17,9 +17,11 @@ const useDocument = () => {
       const data = await api.get(url);
       setDocuments(data);
       setError(null);
+      return data;
     } catch (err) {
       console.error("Fetch documents error:", err);
       setError(err.message || "Failed to load documents");
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -31,9 +33,11 @@ const useDocument = () => {
       const data = await api.get(`/api/document/${id}`);
       setSpecificDocument(data);
       setError(null);
+      return data;
     } catch (err) {
       console.error("Fetch document error:", err);
       setError(err.message || "Failed to load document");
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -42,10 +46,12 @@ const useDocument = () => {
   const createDocument = useCallback(async (documentData) => {
     try {
       if (!documentData.content) {
-        documentData.content = "#Hello World";
+        documentData.content = "# Hello World\n\nStart writing your document...";
       }
       const response = await api.post("/api/document/create", documentData);
-      setDocuments((prev) => [...prev, response]);
+      setDocuments((prev) => [response, ...prev]);
+      setError(null);
+      console.log("Document created successfully:", response);
       return response;
     } catch (err) {
       console.error("Create document error:", err);
@@ -58,6 +64,7 @@ const useDocument = () => {
     try {
       await api.delete(`/api/document/${id}`);
       setDocuments((prev) => prev.filter((document) => document.id !== id));
+      setError(null);
     } catch (err) {
       console.error("Delete document error:", err);
       setError(err.message || "Failed to delete document");
@@ -69,9 +76,11 @@ const useDocument = () => {
     try {
       setLoading(true);
       const { id, ...data } = documentData;
-      console.log(typeof id, data);
       const response = await api.put(`/api/document/update/${id}`, data);
       setSpecificDocument(prev => ({ ...prev, ...response }));
+      setDocuments(prev =>
+        prev.map(doc => doc.id === id ? { ...doc, ...response } : doc)
+      );
       setError(null);
       return response;
     } catch (err) {
@@ -89,13 +98,23 @@ const useDocument = () => {
       const data = await api.get("/api/document/all");
       setDocuments(data);
       setError(null);
+      return data;
     } catch (err) {
       console.error("Fetch all documents error:", err);
       setError(err.message || "Failed to load all documents");
+      throw err;
     } finally {
       setLoading(false);
     }
   }, []);
+
+  const refreshDocuments = useCallback((workspaceId = null) => {
+    if (workspaceId) {
+      return fetchDocuments(workspaceId);
+    } else {
+      return fetchAllDocument();
+    }
+  }, [fetchDocuments, fetchAllDocument]);
 
   return {
     documents,
@@ -109,6 +128,7 @@ const useDocument = () => {
     specificDocument,
     setSpecificDocument,
     fetchAllDocument,
+    refreshDocuments,
   };
 };
 

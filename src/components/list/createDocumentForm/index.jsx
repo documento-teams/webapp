@@ -1,28 +1,36 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 import Button from "@/components/common/button";
 import useDocument from "@/hooks/useDocument";
 
 const CreateDocumentForm = ({ workspaceId }) => {
   const { createDocument } = useDocument();
+  const navigate = useNavigate();
   const [isCreating, setIsCreating] = useState(false);
   const [name, setName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleCreate = async (e) => {
     e.preventDefault();
-    if (!name.trim()) {
+    if (!name.trim() || isSubmitting) {
       return;
     }
 
     try {
-      await createDocument({
-        name,
+      setIsSubmitting(true);
+      const newDocument = await createDocument({
+        name: name.trim(),
         workspaceId: parseInt(workspaceId, 10)
       });
+
+      navigate(`/documents/${newDocument.id}`);
       setName("");
       setIsCreating(false);
     } catch (err) {
       console.error("Error creating document:", err);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -53,13 +61,26 @@ const CreateDocumentForm = ({ workspaceId }) => {
           className="input input-bordered input-sm"
           placeholder="Document name"
           required
+          disabled={isSubmitting}
+          autoFocus
         />
-        <Button type="submit" variant="primary" size="sm">Create</Button>
+        <Button
+          type="submit"
+          variant="primary"
+          size="sm"
+          disabled={isSubmitting || !name.trim()}
+        >
+          {isSubmitting ? "Creating..." : "Create"}
+        </Button>
       </form>
       <Button
         variant="ghost"
         size="sm"
-        onClick={() => setIsCreating(false)}
+        onClick={() => {
+          setIsCreating(false);
+          setName("");
+        }}
+        disabled={isSubmitting}
       >
         Cancel
       </Button>
@@ -68,7 +89,7 @@ const CreateDocumentForm = ({ workspaceId }) => {
 };
 
 CreateDocumentForm.propTypes = {
-  workspaceId: PropTypes.string.isRequired
+  workspaceId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default CreateDocumentForm;
