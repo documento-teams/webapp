@@ -21,7 +21,6 @@
 - **Vite** - Lightning-fast build tool and development server
 - **React Router v7** - Client-side routing with nested layouts
 - **Tailwind CSS 4** - Utility-first CSS framework
-- **DaisyUI** - Beautiful component library for Tailwind
 - **MDXEditor** - Advanced MDX editing capabilities
 - **React Hot Toast** - Elegant notification system
 - **js-cookie** - Cookie management for authentication
@@ -146,7 +145,6 @@ webapp/
 
 ### User Interface
 - **Responsive Design**: Optimized for desktop, tablet, and mobile
-- **Dark/Light Mode**: System preference detection (via DaisyUI)
 - **Sticky Navigation**: Persistent sidebar for easy navigation
 - **Toast Notifications**: Real-time feedback for user actions
 - **Loading States**: Smooth loading indicators throughout the app
@@ -170,37 +168,14 @@ The project uses a custom Vite configuration with:
 ### Tailwind CSS Setup
 
 The project uses Tailwind CSS v4 with:
-- **DaisyUI Components**: Pre-built UI components
 - **Custom Utilities**: Project-specific utility classes
 - **Responsive Design**: Mobile-first responsive breakpoints
 - **Color Scheme**: Consistent color palette across the application
 
 ## 🔌 API Integration
-
-### Authentication Endpoints
-- `POST /api/user/register` - User registration
-- `POST /api/user/login` - User login
-- `GET /api/user/me` - Get current user info
-- `PUT /api/user/update` - Update user profile
-- `DELETE /api/user/delete` - Delete user account
-
-### Document Endpoints
-- `POST /api/document/create` - Create new document
-- `GET /api/document/all` - Get all documents (admin)
-- `GET /api/document/author` - Get user's documents
-- `GET /api/document/:id` - Get specific document
-- `PUT /api/document/update/:id` - Update document
-- `DELETE /api/document/:id` - Delete document
-- `GET /api/document/workspace/:id` - Get workspace documents
-
-### Workspace Endpoints
-- `POST /api/workspace/create` - Create new workspace
-- `GET /api/workspace/all` - Get all workspaces (admin)
-- `GET /api/workspace/author` - Get user's workspaces
-- `GET /api/workspace/:id` - Get specific workspace
-- `PUT /api/workspace/update` - Update workspace
-- `DELETE /api/workspace/:id` - Delete workspace
-
+```bash
+ http://localhost:3000/documentation
+```
 ## 🎨 UI Components
 
 ### Common Components
@@ -241,21 +216,12 @@ While not yet implemented, the project structure supports:
 
 ### Common Issues
 
-**1. API Connection Issues**
-```bash
-# Check if backend is running
-curl http://localhost:3000/health
-
-# Verify environment variables
-echo $VITE_API_URL
-```
-
-**2. Authentication Problems**
+**1. Authentication Problems**
 - Clear browser cookies and localStorage
 - Check JWT token expiration
 - Verify backend authentication middleware
 
-**3. Build Issues**
+**2. Build Issues**
 ```bash
 # Clear node_modules and reinstall
 rm -rf node_modules package-lock.json
@@ -265,10 +231,9 @@ npm install
 npm run dev -- --force
 ```
 
-**4. Styling Issues**
+**3. Styling Issues**
 - Ensure Tailwind CSS is properly configured
 - Check for conflicting CSS rules
-- Verify DaisyUI theme configuration
 
 ## 🤝 Contributing
 
