@@ -65,5 +65,3 @@ const testResults = {};
 getAvailablePresets().forEach(preset => {
   testResults[preset] = Object.keys(getDependencies(preset)).length;
 });
-
-console.log("✅ Dependencies count per preset:", testResults);
