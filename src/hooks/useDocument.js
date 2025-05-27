@@ -62,7 +62,7 @@ const useDocument = () => {
 
   const deleteDocument = useCallback(async (id) => {
     try {
-      await api.delete(`/api/document/delete/${id}` , "AAAAA");
+      await api.delete(`/api/document/delete/${id}` , "Deleting document");
       setDocuments((prev) => prev.filter((document) => document.id !== id));
       setError(null);
     } catch (err) {

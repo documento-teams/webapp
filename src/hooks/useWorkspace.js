@@ -34,7 +34,7 @@ const useWorkspace = () => {
 
   const deleteWorkspace = async (id) => {
     try {
-      await api.delete(`/api/workspace/${id}`, "AAAAA");
+      await api.delete(`/api/workspace/${id}`, "Deleting workspace");
       setWorkspaces(prev => prev.filter(workspace => workspace.id !== id));
     } catch (err) {
       console.error("Delete workspace error:", err);
