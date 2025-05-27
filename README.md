@@ -9,9 +9,8 @@
 - **🔐 User Authentication**: Secure login/registration with JWT-based authentication
 - **📝 MDX Document Editing**: Rich text editing with MDX support for enhanced formatting
 - **🏢 Workspace Management**: Organize documents into dedicated workspaces
-- **👥 Collaborative Editing**: Multi-user document collaboration with permission controls
 - **🛡️ Permission System**: Read-only and edit access controls for document sharing
-- **📱 Responsive UI**: Modern, mobile-friendly interface built with Tailwind CSS and DaisyUI
+- **📱 Responsive UI**: Modern, mobile-friendly interface built with Tailwind CSS
 - **⚡ Real-time Updates**: Reactive UI with instant updates across the platform
 - **🎨 Modern Design**: Clean, intuitive interface with smooth animations
 
