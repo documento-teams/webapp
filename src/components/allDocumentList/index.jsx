@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const AllDocumentsList = () => {
   const navigate = useNavigate();
-  const { documents, loading, error, fetchAllDocument, deleteDocument } = useDocument();
+  const { documents, loading, error, fetchAllDocument } = useDocument();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedAuthor, setSelectedAuthor] = useState("");
 
@@ -19,12 +19,12 @@ const AllDocumentsList = () => {
     navigate(`/documents/${document.id}`);
   };
 
-  const renderDocumentItem = (document, { onDeleteItem }) => (
+  const renderDocumentItem = (document) => (
     <DocumentItem
       document={document}
       onSelect={handleSelectDocument}
-      onDelete={onDeleteItem}
       showAuthor={true}
+      showDelete={false}
     />
   );
 
@@ -88,8 +88,7 @@ const AllDocumentsList = () => {
       <List
         items={filteredDocuments}
         renderItem={renderDocumentItem}
-        onDeleteItem={deleteDocument}
-        itemTypeName="All Docuements"
+        itemTypeName="Documents"
         isLoading={loading}
         error={error}
         emptyMessage={

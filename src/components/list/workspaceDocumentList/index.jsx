@@ -41,6 +41,7 @@ const WorkspaceDocumentList = ({ id }) => {
       document={document}
       onSelect={handleSelectDocument}
       onDelete={onDeleteItem}
+      showDelete={true}
     />
   );
 
