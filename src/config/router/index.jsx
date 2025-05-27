@@ -13,7 +13,7 @@ import WorkspaceDocumentListView from "@/views/workspaces/workspaceDocumentListV
 import DocumentEditorView from "@/views/documents/documentEditorView";
 import ProtectedRoutes from "@/components/privateRoutes";
 import AllDocumentsView from "@/views/documents/allDocuments";
-
+import ProfileView from "@/views/profile";
 
 const router = createBrowserRouter([
   {
@@ -96,6 +96,19 @@ const router = createBrowserRouter([
         element: <DocumentEditorView />,
       },
     ],
+  },
+  {
+    path: "/profile",
+    element: (
+      <>
+        <ProtectedRoutes>
+          <div className="flex">
+            <NavigationSidebar />
+            <ProfileView />
+          </div>
+        </ProtectedRoutes>
+      </>
+    ),
   },
 ]);
 
