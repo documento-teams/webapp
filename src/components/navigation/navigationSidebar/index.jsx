@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import Sidebar from "@/components/common/sidebar";
-import Logout from "@/components/common/logout";
 import useLogin from "@/hooks/useLogin";
 
 const NavigationSidebar = () => {
