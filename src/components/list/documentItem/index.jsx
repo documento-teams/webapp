@@ -1,14 +1,15 @@
+import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 import Button from "@/components/common/button";
 
 const DocumentItem = ({ document, onSelect, onDelete, showAuthor = false, showDelete = true, userPermissions = null }) => {
   const handleDelete = (e) => {
     e.stopPropagation();
-    if (window.confirm("Are you sure you want to delete this document?")) {
+    if (window.confirm(t("document.confirmDelete"))) {
       onDelete(document.id);
     }
   };
-
+  const { t } = useTranslation();
   const canDelete = showDelete && (userPermissions?.canDelete ?? true);
 
   return (
@@ -20,7 +21,7 @@ const DocumentItem = ({ document, onSelect, onDelete, showAuthor = false, showDe
               <h3 className="card-title text-lg text-purple-700">{document.name}</h3>
               {userPermissions?.readOnly && (
                 <span className="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded-full">
-                  👁️ View Only
+                  👁️ {t("document.viewOnly")}
                 </span>
               )}
             </div>
@@ -36,7 +37,7 @@ const DocumentItem = ({ document, onSelect, onDelete, showAuthor = false, showDe
             )}
             {document.updatedAt && (
               <div className="text-xs text-gray-400">
-                Updated: {new Date(document.updatedAt).toLocaleDateString()}
+                {t("document.updated")}: {new Date(document.updatedAt).toLocaleDateString()}
               </div>
             )}
           </div>
@@ -47,7 +48,7 @@ const DocumentItem = ({ document, onSelect, onDelete, showAuthor = false, showDe
                 size="sm"
                 onClick={() => onSelect(document)}
               >
-                {userPermissions?.readOnly ? "View" : "Open"}
+                {userPermissions?.readOnly ? t("common.view") : t("common.open")}
               </Button>
               {canDelete && (
                 <Button
@@ -56,7 +57,7 @@ const DocumentItem = ({ document, onSelect, onDelete, showAuthor = false, showDe
                   outline
                   onClick={handleDelete}
                 >
-                  Delete
+                  {t("common.delete")}
                 </Button>
               )}
             </div>

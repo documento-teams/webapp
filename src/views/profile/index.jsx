@@ -1,19 +1,24 @@
 import UserForm from "@/components/form/userForm";
 import useUser from "@/hooks/useUser";
+import LanguageSelector from "../../components/common/LanguageSelector";
+import { useTranslation } from "react-i18next";
+
 
 const ProfileView = () => {
+  const { t } = useTranslation();
   const { user, loading, error } = useUser();
 
   if (loading) {
-    return <div>Chargement...</div>;
+    return <div>{t("common.loading")}</div>;
   }
   if (error) {
-    return <div>Erreur: {error}</div>;
+    return <div>{t("common.error")}: {error}</div>;
   }
 
   return (
     <>
-      <UserForm userData={user} buttonText="Mettre à jour le profil" />
+      <LanguageSelector />
+      <UserForm userData={user} buttonText={t("profile.update")}/>
     </>
   );
 };

@@ -5,8 +5,11 @@ import useDocument from "@/hooks/useDocument";
 import useWorkspace from "@/hooks/useWorkspace";
 import DocumentItem from "@/components/list/documentItem";
 import CreateDocumentForm from "@/components/list/createDocumentForm";
+import { useTranslation } from "react-i18next";
+
 
 const WorkspaceDocumentList = ({ id }) => {
+  const { t } = useTranslation();
   const { documents, loading: docLoading, error: docError, fetchDocuments, deleteDocument } = useDocument();
   const { workspaces, loading: wsLoading, error: wsError } = useWorkspace();
   const [workspace, setWorkspace] = useState(null);
@@ -52,10 +55,10 @@ const WorkspaceDocumentList = ({ id }) => {
       {workspace && (
         <div className="mb-6 bg-white p-6 rounded-xl shadow-sm border border-gray-200">
           <h2 className="text-2xl font-bold text-purple-700">
-            {workspace.name} Documents
+            {t("workspace.title", { name: workspace.name })}
           </h2>
           <p className="text-sm text-gray-600">
-            Manage your documents in this workspace
+            {t("workspace.subtitle")}
           </p>
         </div>
       )}
@@ -63,10 +66,10 @@ const WorkspaceDocumentList = ({ id }) => {
         items={documentsArray}
         renderItem={renderDocumentItem}
         onDeleteItem={deleteDocument}
-        itemTypeName="Your Documents"
+        itemTypeName={t("workspace.itemTypeName")}
         isLoading={isLoading}
         error={error}
-        emptyMessage="No documents found in this workspace. Create your first one!"
+        emptyMessage={t("workspace.emptyMessage")}
         createFormComponent={renderCreateDocumentForm}
         className="grid grid-cols-1 gap-6 w-full max-w-full"
       />

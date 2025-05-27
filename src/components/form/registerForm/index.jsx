@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import useRegister from "@/hooks/useRegister";
 import Input from "@/components/common/input";
+import LanguageSelector from "../../common/LanguageSelector";
 
 const RegisterForm = () => {
   const { error, handleRegister } = useRegister();
+  const { t } = useTranslation();
 
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -30,15 +33,15 @@ const RegisterForm = () => {
         onSubmit={handleSubmit}
       >
         <h2 className="text-4xl font-bold mb-8 text-center text-green-700">
-          Register
+          {t("register.title")}
         </h2>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
         <div className="mb-6">
           <Input
-            label="Full Name"
+            label={t("register.fullname")}
             type="text"
-            placeholder="Enter your full name"
+            placeholder={t("register.fullnamePlaceholder")}
             variant="success"
             fullWidth
             value={fullname}
@@ -49,9 +52,9 @@ const RegisterForm = () => {
 
         <div className="mb-6">
           <Input
-            label="Email"
+            label={t("login.email")}
             type="email"
-            placeholder="Enter your email"
+            placeholder={t("login.emailPlaceholder")}
             variant="success"
             fullWidth
             value={email}
@@ -62,9 +65,9 @@ const RegisterForm = () => {
 
         <div className="mb-6">
           <Input
-            label="Password"
+            label={t("login.password")}
             type="password"
-            placeholder="Enter your password"
+            placeholder={t("login.passwordPlaceholder")}
             variant="success"
             fullWidth
             value={password}
@@ -75,9 +78,9 @@ const RegisterForm = () => {
 
         <div className="mb-6">
           <Input
-            label="Confirm Password"
+            label={t("register.confirmPassword")}
             type="password"
-            placeholder="Confirm your password"
+            placeholder={t("register.confirmPasswordPlaceholder")}
             variant="success"
             fullWidth
             value={confirmPassword}
@@ -91,12 +94,12 @@ const RegisterForm = () => {
           type="submit"
           className="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition duration-300"
         >
-          Register
+          {t("login.signup")}
         </button>
         <p className="text-center text-gray-600 mt-4">
-          Already have an account?{" "}
+          {t("register.alreadyAccount")}{" "}
           <a href="/login" className="text-green-600 hover:underline">
-            Login
+            {t("login.title")}
           </a>
         </p>
       </form>

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useCallback, useState } from "react";
 import useDocument from "@/hooks/useDocument";
@@ -5,6 +6,7 @@ import DocuEditor from "@/components/common/documentMDXEditor";
 import Button from "@/components/common/button";
 
 const DocumentEditor = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
   const { fetchDocumentsById, specificDocument, updateDocument, error } = useDocument();
@@ -80,7 +82,7 @@ const DocumentEditor = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="text-lg">Chargement du document...</div>
+        <div className="text-lg">{t("document.loading")}</div>
       </div>
     );
   }
@@ -88,7 +90,7 @@ const DocumentEditor = () => {
   if (!specificDocument) {
     return (
       <div className="flex justify-center items-center h-64">
-        <div className="text-lg">Document non trouvé</div>
+        <div className="text-lg">{t("document.notFound")}</div>
       </div>
     );
   }
@@ -98,7 +100,7 @@ const DocumentEditor = () => {
       <div className="flex items-center justify-between p-4 border-b bg-white">
         <div className="flex items-center gap-4">
           <Button variant="ghost" onClick={handleBack}>
-            ← Back
+            ← {t("common.back")}
           </Button>
           <div>
             <h1 className="text-xl font-semibold">
@@ -106,11 +108,11 @@ const DocumentEditor = () => {
             </h1>
             <div className="flex items-center gap-4">
               <p className="text-sm text-gray-500">
-                {hasChanges && canEdit ? "Unsaved changes" : "All changes saved"}
+                {hasChanges && canEdit ? t("document.unsaved") : t("document.saved")}
               </p>
               {readOnly && (
                 <span className="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">
-                  📖 Read Only
+                  📖 {t("document.readOnly")}
                 </span>
               )}
               {specificDocument.documentAuthor && (
@@ -128,12 +130,12 @@ const DocumentEditor = () => {
               disabled={!hasChanges || saving || readOnly}
               variant={hasChanges ? "primary" : "secondary"}
             >
-              {saving ? "Saving..." : "Save"}
+              {saving ? t("document.saving") : t("document.save")}
             </Button>
           )}
           {readOnly && (
             <div className="text-sm text-amber-600 bg-amber-50 px-3 py-1 rounded">
-              You can view this document but cannot edit it
+              {t("document.readOnlyMsg")}
             </div>
           )}
         </div>
@@ -141,7 +143,7 @@ const DocumentEditor = () => {
 
       {error && error.includes("permission") && (
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 mx-4 mt-4 rounded">
-          {error}
+          {t("document.permissionError")}
         </div>
       )}
 

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useWorkspace from "@/hooks/useWorkspace";
@@ -5,6 +6,7 @@ import Input from "@/components/common/input";
 import Button from "@/components/common/button";
 
 const CreateWorkspaceForm = () => {
+  const { t } = useTranslation();
   const { createWorkspace } = useWorkspace();
   const navigate = useNavigate();
   const [newWorkspaceName, setNewWorkspaceName] = useState("");
@@ -36,7 +38,7 @@ const CreateWorkspaceForm = () => {
   if (!isCreating) {
     return (
       <Button variant="primary" size="sm" onClick={() => setIsCreating(true)}>
-        New Workspace
+        {t("workspace.new")}
       </Button>
     );
   }
@@ -49,7 +51,7 @@ const CreateWorkspaceForm = () => {
           value={newWorkspaceName}
           onChange={(e) => setNewWorkspaceName(e.target.value)}
           variant="primary"
-          placeholder="Workspace name"
+          placeholder={t("workspace.namePlaceholder")}
           required
           disabled={isSubmitting}
           autoFocus
@@ -61,7 +63,7 @@ const CreateWorkspaceForm = () => {
           size="sm"
           disabled={isSubmitting || !newWorkspaceName.trim()}
         >
-          {isSubmitting ? "Creating..." : "Create"}
+          {isSubmitting ? t("document.creating") : t("document.create")}
         </Button>
       </form>
       <Button
@@ -73,7 +75,7 @@ const CreateWorkspaceForm = () => {
         }}
         disabled={isSubmitting}
       >
-        Cancel
+        {t("common.cancel")}
       </Button>
     </div>
   );
