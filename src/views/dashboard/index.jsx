@@ -1,4 +1,5 @@
 import Sidebar from "@/components/common/sidebar";
+import Input from "@/components/form/input";
 
 const Dashboard = () => {
   return (
@@ -6,6 +7,16 @@ const Dashboard = () => {
       <div className="flex flex-col md:flex-row">
         <div className="w-full md:w-3/4 p-4">
           <h1 className="text-2xl font-bold">Dashboard Content</h1>
+          <Input
+            name="email"
+            label="Adresse email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="nom@example.com"
+            required
+          />
+
         </div>
       </div>
     </>
