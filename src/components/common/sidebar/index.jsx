@@ -1,6 +1,6 @@
 const Sidebar = ({ title, items, footerItems }) => {
   return (
-    <div className="w-64 h-screen bg-white shadow-xl rounded-lg pr-4 border-r-2 border-gray-300 flex flex-col justify-between p-4">
+    <div className="w-64 h-screen bg-white shadow-xl rounded-lg pr-4 border-r-2 border-gray-300 flex flex-col justify-between p-4 sticky top-0">
       <div>
         <h2 className="text-2xl font-bold text-purple-700 my-6 text-center">
           {title}
