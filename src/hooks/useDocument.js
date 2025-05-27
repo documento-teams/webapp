@@ -76,7 +76,9 @@ const useDocument = () => {
     try {
       setLoading(true);
       const { id, ...data } = documentData;
+
       const response = await api.put(`/api/document/update/${id}`, data);
+
       setSpecificDocument(prev => ({ ...prev, ...response }));
       setDocuments(prev =>
         prev.map(doc => doc.id === id ? { ...doc, ...response } : doc)
@@ -85,7 +87,13 @@ const useDocument = () => {
       return response;
     } catch (err) {
       console.error("Update document error:", err);
-      setError(err.message || "Failed to update document");
+
+      // Gérer spécifiquement l'erreur de permission
+      if (err.message.includes("Not authorized to edit")) {
+        setError("You don't have permission to edit this document. You can only view it.");
+      } else {
+        setError(err.message || "Failed to update document");
+      }
       throw err;
     } finally {
       setLoading(false);
