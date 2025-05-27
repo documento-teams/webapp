@@ -1,0 +1,15 @@
+{
+    "welcome": "Bienvenue",
+    "logout": "Deconnexion",
+    "login": {
+      "title": "Connexion",
+      "email": "Adresse e-mail",
+      "emailPlaceholder": "Entrez votre e-mail",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "Entrez votre mot de passe",
+      "submit": "Se connecter",
+      "noAccount": "Pas encore de compte ?",
+      "signup": "Créer un compte"
+    }
+  }
+  
