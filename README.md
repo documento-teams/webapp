@@ -35,7 +35,7 @@
 ### Prerequisites
 
 - **Node.js** (v18 or higher)
-- **npm** or **bun** package manager
+- **npm**, **yarn**, or **bun** package manager
 - **Fastify backend** running on port 3000
 
 ### Installation
@@ -49,7 +49,9 @@
 2. **Install dependencies**
    ```bash
    npm install
-   # or
+   # or with yarn
+   yarn install
+   # or with bun
    bun install
    ```
 
@@ -66,7 +68,9 @@
 4. **Start the development server**
    ```bash
    npm run dev
-   # or
+   # or with yarn
+   yarn dev
+   # or with bun
    bun dev
    ```
 
@@ -75,13 +79,13 @@
 
 ### Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server with hot reload |
-| `npm run build` | Build production bundle |
-| `npm run preview` | Preview production build locally |
-| `npm run lint` | Run ESLint code analysis |
-| `npm run lint:fix` | Fix ESLint issues automatically |
+| Command | Bun Alternative | Description |
+|---------|-----------------|-------------|
+| `npm run dev` | `bun dev` | Start development server with hot reload |
+| `npm run build` | `bun run build` | Build production bundle |
+| `npm run preview` | `bun run preview` | Preview production build locally |
+| `npm run lint` | `bun run lint` | Run ESLint code analysis |
+| `npm run lint:fix` | `bun run lint:fix` | Fix ESLint issues automatically |
 
 ## 🏗️ Project Structure
 
@@ -226,9 +230,14 @@ While not yet implemented, the project structure supports:
 # Clear node_modules and reinstall
 rm -rf node_modules package-lock.json
 npm install
+# or with bun
+rm -rf node_modules bun.lockb
+bun install
 
 # Clear Vite cache
 npm run dev -- --force
+# or with bun
+bun dev --force
 ```
 
 **3. Styling Issues**
