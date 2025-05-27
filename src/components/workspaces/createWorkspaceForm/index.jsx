@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useWorkspace from "@/hooks/useWorkspace";
+import Input from "@/components/common/input";
+import Button from "@/components/common/button";
 
 const CreateWorkspaceForm = () => {
   const { createWorkspace } = useWorkspace();
@@ -33,46 +35,46 @@ const CreateWorkspaceForm = () => {
 
   if (!isCreating) {
     return (
-      <button
-        onClick={() => setIsCreating(true)}
-        className="btn btn-primary btn-sm"
-      >
+      <Button variant="primary" size="sm" onClick={() => setIsCreating(true)}>
         New Workspace
-      </button>
+      </Button>
     );
   }
 
   return (
     <div className="flex items-center gap-2">
       <form onSubmit={handleCreateWorkspace} className="flex gap-2">
-        <input
+        <Input
           type="text"
           value={newWorkspaceName}
           onChange={(e) => setNewWorkspaceName(e.target.value)}
-          className="input input-bordered input-sm"
+          variant="primary"
           placeholder="Workspace name"
           required
           disabled={isSubmitting}
           autoFocus
+          inputClassName="input-sm"
         />
-        <button
+        <Button
           type="submit"
-          className="btn btn-primary btn-sm"
+          variant="primary"
+          size="sm"
           disabled={isSubmitting || !newWorkspaceName.trim()}
         >
           {isSubmitting ? "Creating..." : "Create"}
-        </button>
+        </Button>
       </form>
-      <button
+      <Button
+        variant="ghost"
+        size="sm"
         onClick={() => {
           setIsCreating(false);
           setNewWorkspaceName("");
         }}
-        className="btn btn-ghost btn-sm"
         disabled={isSubmitting}
       >
         Cancel
-      </button>
+      </Button>
     </div>
   );
 };
