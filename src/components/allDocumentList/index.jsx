@@ -88,7 +88,7 @@ const AllDocumentsList = () => {
       <List
         items={filteredDocuments}
         renderItem={renderDocumentItem}
-        itemTypeName="Documents"
+        itemTypeName="All Documents"
         isLoading={loading}
         error={error}
         emptyMessage={
