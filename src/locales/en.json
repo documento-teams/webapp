@@ -1,0 +1,71 @@
+{
+  "login": {
+    "title": "Login",
+    "email": "Email address",
+    "emailPlaceholder": "Enter your email address",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "submit": "Log in",
+    "noAccount": "Don't have an account?",
+    "signup": "Sign up"
+  },
+  "register": {
+    "title": "Sign Up",
+    "fullname": "Full name",
+    "fullnamePlaceholder": "Enter your full name",
+    "confirmPassword": "Confirm password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "passwordsDontMatch": "Passwords do not match",
+    "alreadyAccount": "Already have an account?"
+  },
+  "dashboard": {
+    "title": "Dashboard Content"
+  },
+  "common": {
+    "back": "Back",
+    "loading": "Loading...",
+    "view": "View",
+    "open": "Open",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "error": "Error"
+  },
+  "document": {
+    "loading": "Loading document...",
+    "notFound": "Document not found",
+    "unsaved": "Unsaved changes",
+    "saved": "All changes saved",
+    "readOnly": "Read Only",
+    "readOnlyMsg": "You can view this document but cannot edit it",
+    "saving": "Saving...",
+    "save": "Save",
+    "permissionError": "You do not have permission for this action",
+    "confirmDelete": "Are you sure you want to delete this document?",
+    "viewOnly": "View Only",
+    "updated": "Updated",
+    "new": "New Document",
+    "create": "Create",
+    "creating": "Creating...",
+    "namePlaceholder": "Document name"
+  },
+  "profile": {
+    "title": "User Profile",
+    "fullname": "Full Name",
+    "email": "Email",
+    "notSpecified": "Not specified",
+    "update": "Update profile"
+  },
+  "workspace": {
+    "title": "{{name}} Documents",
+    "subtitle": "Manage your documents in this workspace",
+    "itemTypeName": "Your Documents",
+    "emptyMessage": "No documents found in this workspace. Create your first one!",
+    "new": "New Workspace",
+    "namePlaceholder": "Workspace name",
+    "workspace": "Workspace"
+  }
+
+
+
+
+}

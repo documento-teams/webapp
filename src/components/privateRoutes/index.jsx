@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import api from "@/lib/api";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 
 const ProtectedRoutes = ({ children, redirectPath = "/login" }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -24,7 +26,7 @@ const ProtectedRoutes = ({ children, redirectPath = "/login" }) => {
   }, []);
 
   if (isLoading) {
-    return <div className="flex justify-center items-center h-screen">Chargement...</div>;
+    return <div className="flex justify-center items-center h-screen">{t("common.loading")}</div>;
   }
 
   if (!isAuthenticated) {

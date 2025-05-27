@@ -1,7 +1,9 @@
+import { useTranslation } from "react-i18next";
 import useLogin from "@/hooks/useLogin";
 import Input from "@/components/common/input";
 
 const LoginForm = () => {
+  const { t } = useTranslation();
   const { email, setEmail, password, setPassword, error, handleSubmit } =
     useLogin();
 
@@ -12,15 +14,17 @@ const LoginForm = () => {
         onSubmit={handleSubmit}
       >
         <h2 className="text-4xl font-bold mb-8 text-center text-purple-700">
-          Login
+          {t("login.title")}
         </h2>
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
         <div className="mb-6">
+          <label className="block text-gray-700 font-medium mb-2">
+            {t("login.email")}
+          </label>
           <Input
-            label="Email"
             type="email"
-            placeholder="Enter your email"
+            placeholder={t("login.emailPlaceholder")}
             variant="secondary"
             fullWidth
             value={email}
@@ -30,10 +34,12 @@ const LoginForm = () => {
         </div>
 
         <div className="mb-6">
+          <label className="block text-gray-700 font-medium mb-2">
+            {t("login.password")}
+          </label>
           <Input
-            label="Password"
             type="password"
-            placeholder="Enter your password"
+            placeholder={t("login.passwordPlaceholder")}
             variant="secondary"
             fullWidth
             value={password}
@@ -46,12 +52,12 @@ const LoginForm = () => {
           type="submit"
           className="w-full bg-purple-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-purple-700 transition duration-300"
         >
-          Login
+          {t("login.submit")}
         </button>
         <p className="text-center text-gray-600 mt-4">
-          Don't have an account?{" "}
+          {t("login.noAccount")}{" "}
           <a href="#" className="text-purple-600 hover:underline">
-            Sign up
+            {t("login.signup")}
           </a>
         </p>
       </form>

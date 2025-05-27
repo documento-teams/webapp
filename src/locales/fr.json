@@ -1,0 +1,70 @@
+{
+  "login": {
+    "title": "Connexion",
+    "email": "Adresse e-mail",
+    "emailPlaceholder": "Entrez votre adresse e-mail",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "submit": "Se connecter",
+    "noAccount": "Pas encore de compte ?",
+    "signup": "Créer un compte"
+  },
+  "register": {
+    "title": "Créer un compte",
+    "fullname": "Nom complet",
+    "fullnamePlaceholder": "Entrez votre nom complet",
+    "confirmPassword": "Confirmer le mot de passe",
+    "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
+    "passwordsDontMatch": "Les mots de passe ne correspondent pas",
+    "alreadyAccount": "Vous avez déjà un compte ?"
+  },
+  "dashboard": {
+    "title": "Contenu du tableau de bord"
+  },
+  "common": {
+    "back": "Retour",
+    "loading": "Chargement...",
+    "view": "Voir",
+    "open": "Ouvrir",
+    "delete": "Supprimer",
+    "cancel": "Annuler",
+    "error" : "Erreur"
+  },
+  "document": {
+    "loading": "Chargement du document...",
+    "notFound": "Document non trouvé",
+    "unsaved": "Modifications non enregistrées",
+    "saved": "Toutes les modifications sont enregistrées",
+    "readOnly": "Lecture seule",
+    "readOnlyMsg": "Vous pouvez voir ce document mais ne pouvez pas le modifier",
+    "saving": "Enregistrement...",
+    "save": "Enregistrer",
+    "permissionError": "Vous n'avez pas la permission pour cette action",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer ce document ?",
+    "viewOnly": "Lecture seule",
+    "updated": "Mis à jour",
+    "new": "Nouveau document",
+    "create": "Créer",
+    "creating": "Création...",
+    "namePlaceholder": "Nom du document"
+  },
+  "profile": {
+    "title": "Profil utilisateur",
+    "fullname": "Nom complet",
+    "email": "Adresse e-mail",
+    "notSpecified": "Non renseigné",
+    "update": "Mettre à jour le profil"
+  },
+  "workspace": {
+    "title": "Documents de {{name}}",
+    "subtitle": "Gérez vos documents dans cet espace de travail",
+    "itemTypeName": "Vos documents",
+    "emptyMessage": "Aucun document trouvé dans cet espace de travail. Créez-en un nouveau !",
+    "new": "Nouvel espace",
+    "namePlaceholder": "Nom de l’espace de travail",
+    "workspace": "Espace de travail"
+  }
+
+
+
+}

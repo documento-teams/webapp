@@ -1,10 +1,14 @@
 import AllDocumentsList from "@/components/allDocumentList";
+import LanguageSelector from "../../../components/common/LanguageSelector";
 
 const DocumentsView = () => {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <AllDocumentsList />
-    </div>
+    <>
+      <LanguageSelector />
+      <div className="container mx-auto px-4 py-8">
+        <AllDocumentsList />
+      </div>
+    </>
   );
 };
 

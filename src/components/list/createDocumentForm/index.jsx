@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +7,7 @@ import Input from "@/components/common/input";
 import useDocument from "@/hooks/useDocument";
 
 const CreateDocumentForm = ({ workspaceId }) => {
+  const { t } = useTranslation();
   const { createDocument } = useDocument();
   const navigate = useNavigate();
   const [isCreating, setIsCreating] = useState(false);
@@ -58,7 +60,7 @@ const CreateDocumentForm = ({ workspaceId }) => {
           </svg>
         }
       >
-        New Document
+        {t("document.new")}
       </Button>
     );
   }
@@ -71,7 +73,7 @@ const CreateDocumentForm = ({ workspaceId }) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           variant="primary"
-          placeholder="Document name"
+          placeholder={t("document.namePlaceholder")}
           required
           disabled={isSubmitting}
           autoFocus
@@ -83,7 +85,7 @@ const CreateDocumentForm = ({ workspaceId }) => {
           size="sm"
           disabled={isSubmitting || !name.trim()}
         >
-          {isSubmitting ? "Creating..." : "Create"}
+          {isSubmitting ? t("document.creating") : t("document.create")}
         </Button>
       </form>
       <Button
@@ -95,7 +97,7 @@ const CreateDocumentForm = ({ workspaceId }) => {
         }}
         disabled={isSubmitting}
       >
-        Cancel
+        {t("common.cancel")}
       </Button>
     </div>
   );
