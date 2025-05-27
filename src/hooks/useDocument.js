@@ -49,7 +49,6 @@ const useDocument = () => {
         documentData.content = "# Hello World\n\nStart writing your document...";
       }
       const response = await api.post("/api/document/create", documentData);
-      // Mettre à jour la liste des documents en ajoutant le nouveau en première position
       setDocuments((prev) => [response, ...prev]);
       setError(null);
       console.log("Document created successfully:", response);
@@ -59,13 +58,11 @@ const useDocument = () => {
       setError(err.message || "Failed to create document");
       throw err;
     }
-  }, []); // Pas de dépendance à documents ici
+  }, []);
 
   const deleteDocument = useCallback(async (id) => {
     try {
-      // Corriger l'URL - enlever "/delete" et le second paramètre
       await api.delete(`/api/document/${id}`);
-      // Mettre à jour la liste en filtrant le document supprimé
       setDocuments((prev) => prev.filter((document) => document.id !== id));
       setError(null);
     } catch (err) {
@@ -111,7 +108,6 @@ const useDocument = () => {
     }
   }, []);
 
-  // Fonction pour rafraîchir les documents
   const refreshDocuments = useCallback((workspaceId = null) => {
     if (workspaceId) {
       return fetchDocuments(workspaceId);

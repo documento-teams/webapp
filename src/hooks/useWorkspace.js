@@ -23,7 +23,6 @@ const useWorkspace = () => {
   const createWorkspace = async (name) => {
     try {
       const newWorkspace = await api.post("/api/workspace/create", { name });
-      // Le contrôleur retourne maintenant directement le workspace
       setWorkspaces(prev => [...prev, newWorkspace]);
       return newWorkspace;
     } catch (err) {

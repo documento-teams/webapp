@@ -23,7 +23,6 @@ const CreateDocumentForm = ({ workspaceId }) => {
         name: name.trim(),
         workspaceId: parseInt(workspaceId, 10)
       });
-      console.log("Document created, navigating to:", `/documents/${newDocument.id}`);
 
       navigate(`/documents/${newDocument.id}`);
       setName("");

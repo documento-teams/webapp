@@ -51,7 +51,6 @@ const AllDocumentsList = () => {
         <p className="text-sm text-gray-600">
           Browse all the documents ({filteredDocuments.length} documents)
         </p>
-        {/* Filtres */}
         <div className="mt-4 flex flex-col sm:flex-row gap-4">
           <input
             type="text"
