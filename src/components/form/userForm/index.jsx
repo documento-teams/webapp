@@ -7,7 +7,7 @@ const UserProfile = ({ userData }) => {
         </h2>
 
         <div className="mb-6">
-          <p className="text-gray-700font-medium mb-1">Full Name</p>
+          <p className="text-gray-700 font-medium mb-1">Full Name</p>
           <p className="px-4 py-2 border border-gray-200 rounded-lg ">
             {userData?.fullname || "Not specified"}
           </p>
