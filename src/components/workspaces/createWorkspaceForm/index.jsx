@@ -20,8 +20,6 @@ const CreateWorkspaceForm = () => {
 
       const newWorkspace = await createWorkspace(newWorkspaceName.trim());
 
-      console.log("Workspace created, navigating to:", `/workspaces/${newWorkspace.id}`);
-
       navigate(`/workspaces/${newWorkspace.id}`);
 
       setNewWorkspaceName("");
